@@ -1,6 +1,6 @@
 # VanPHP
 
-A mechanism to build a VanJS (or HTML) DOM tree using PHP.
+A mechanism to build a [VanJS](https://vanjs.org) (or HTML) DOM tree using PHP.
 
 ## Example
 
