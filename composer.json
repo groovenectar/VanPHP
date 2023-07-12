@@ -1,5 +1,5 @@
 {
-	"name": "dup/vanphp",
+	"name": "groovenectar/vanphp",
 	"autoload": {
 		"psr-4": {
 			"Dup\\VanPHP\\": "src/"
