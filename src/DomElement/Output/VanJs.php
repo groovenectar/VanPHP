@@ -9,19 +9,19 @@ class VanJs extends AbstractOutput {
 		$html = $element->tag . '(';
 		if (count($element->attributes)) {
 			$html .= $this->attributesToString($element->attributes);
-			if (!empty($element->content)) {
+			if (!empty($element->children)) {
 				$html .= ', ';
 			}
 		}
-		$contentCollection = [];
-		foreach ($element->content as $content) {
-			if ($content instanceof DomElement\Factory) {
-				$contentCollection[] = (string)$content;
+		$childrenCollection = [];
+		foreach ($element->children as $children) {
+			if ($children instanceof DomElement\Factory) {
+				$childrenCollection[] = (string)$children;
 			} else {
-				$contentCollection[] = json_encode($content);
+				$childrenCollection[] = json_encode($children);
 			}
 		}
-		$html .= implode(', ', $contentCollection);
+		$html .= implode(', ', $childrenCollection);
 		return $html . ')';
 	}
 
@@ -31,6 +31,7 @@ class VanJs extends AbstractOutput {
 		}
 		$collection = [];
 		foreach ($attributes as $attribute => $value) {
+			// Determine whether the key will have quotes around it. E.g., "data-*" attributes
 			$key = preg_match('/^[a-zA-Z_][a-zA-Z_0-9]+$/', $attribute) ? $attribute : '"' . $attribute . '"';
 			if (is_callable($value)) {
 				$value = $value();

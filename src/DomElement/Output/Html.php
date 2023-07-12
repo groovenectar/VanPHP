@@ -9,13 +9,7 @@ class Html extends AbstractOutput {
 		return $element->isSelfClosing() ?
 			'<' . $element->tag . $this->attributesToString($element->attributes) . ' />' :
 			'<' . $element->tag . $this->attributesToString($element->attributes) . '>' .
-			implode('', array_map(function($content) {
-				if ($content instanceof DomElement\Factory) {
-					return (string)$content;
-				} else {
-					return $content;
-				}
-			}, $element->content)) .
+			implode('', $element->children) .
 			'</' . $element->tag .  '>';
 	}
 

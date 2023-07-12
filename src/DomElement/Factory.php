@@ -143,21 +143,28 @@ use Dup\VanPHP\DomElement\Output\AbstractOutput;
 class Factory {
 	public string $tag;
 	public array $attributes = [];
-	public array $content = [];
+	public array $children = [];
 	protected static array $selfClosingTags = ['area', 'base', 'basefont', 'br', 'hr', 'input', 'img', 'link', 'meta'];
 
 	public function __construct(public AbstractOutput $output) { }
 
+	// __call magic method https://www.php.net/manual/en/language.oop5.overloading.php#object.call
+	// Allows arbitrary elements to be created e.g. $this->div($param1, $param2, $param3...)
+	// $param1, $param2, etc are stored in array $attributes
 	public function __call(string $name, array $attributes) : self {
+		// Instantiate a new Factory for returning
 		$element = new $this($this->output);
 		$element->tag = $name;
 		if (empty($attributes)) {
 			return $element;
 		}
+		// If the first (and only the first) parameter is an array, those are the element's attributes
 		if (is_array($attributes[0])) {
+			// array_shift returns the first $attribute and also removes it from the array
 			$element->attributes = array_shift($attributes);
 		}
-		$element->content = $attributes;
+		// The rest of the parameters will be the child elements. If none, it's an empty array
+		$element->children = $attributes;
 		return $element;
 	}
 

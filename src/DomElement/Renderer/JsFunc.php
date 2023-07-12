@@ -3,10 +3,7 @@
 namespace Dup\VanPHP\DomElement\Renderer;
 
 class JsFunc {
-	public array $params;
-	public function __construct(public string $file, ...$params) {
-		$this->params = $params;
-	}
+	public function __construct(public string $file) {}
 	public function renderFunc() : string {
 		return preg_replace('/^const fn\s*=\s*/', '', $this->renderRequire());
 	}
