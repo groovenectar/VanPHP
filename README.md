@@ -105,7 +105,7 @@ php vendor/groovenectar/vanphp/test/test.php
 Via Git:
 
 ```shell
-git clome https://github.com/groovenectar/VanPHP.git && cd VanPHP
+git clone https://github.com/groovenectar/VanPHP.git && cd VanPHP
 php test/test.php
 
 # Optionally use Composer for autoloading
